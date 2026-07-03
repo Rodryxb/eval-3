@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Listado de Usuarios</title>
+  <link rel="stylesheet" href="/css/estilos.css" />
+</head>
+<body>
+  <div class="contenedor">
+    <h1>Usuarios registrados</h1>
+
+    <% if (error) { %>
+      <div class="error"><%= error %></div>
+    <% } %>
+
+    <a class="boton" href="/usuarios/nuevo">+ Nuevo usuario</a>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>RUT</th>
+          <th>Correo</th>
+          <th>Teléfono</th>
+          <th>Nacionalidad</th>
+          <th>Género</th>
+          <th>Comuna</th>
+          <th>Fecha Registro</th>
+          <th>Activo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% usuarios.forEach(function(u) { %>
+          <tr>
+            <td><%= u.nombre %></td>
+            <td><%= u.rut %></td>
+            <td><%= u.correo %></td>
+            <td><%= u.telefono || '-' %></td>
+            <td><%= u.nacionalidad %></td>
+            <td><%= u.genero || '-' %></td>
+            <td><%= u.direccion ? u.direccion.comuna : '-' %></td>
+            <td><%= u.fechaRegistro ? new Date(u.fechaRegistro).toLocaleDateString('es-CL') : '-' %></td>
+            <td><%= u.activo ? 'Sí' : 'No' %></td>
+          </tr>
+        <% }); %>
+        <% if (usuarios.length === 0) { %>
+          <tr><td colspan="9">No hay usuarios registrados</td></tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
